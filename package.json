@@ -11,12 +11,15 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "make-all": "electron-builder -mwl",
-    "make-win": "electron-builder --win portable"
+    "make-win": "electron-builder --win"
   },
   "build": {
     "appId": "com.electron.${name}",
     "mac": {
       "category": "public.app-category.education"
+    },
+    "win": {
+      "target": "portable"
     },
     "files": [
       "**/*",
