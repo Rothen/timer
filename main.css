@@ -1,0 +1,107 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body,
+#drawing {
+    width: 100%;
+    height: 100%;
+}
+
+#drawing {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+#drawing>svg {
+    margin: 0 auto;
+    display: block;
+}
+
+#time_overlay {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+#time_overlay,
+#time_overlay>input {
+    font-size: min(min(20vw, 20vh), 60pt);
+}
+
+#time_overlay>input {
+    width: min(200px, min(25vw, 25vh));
+    outline: none;
+    border: none;
+    display: inline;
+    background: transparent;
+}
+
+#minutes {
+    text-align: right;
+}
+
+#seconds {
+    text-align: left;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.button {
+    box-sizing: border-box;
+    height: 74px;
+
+    border-color: transparent transparent transparent #202020;
+    transition: 100ms all ease;
+    will-change: border-width;
+    cursor: pointer;
+
+    border-style: solid;
+    border-width: 37px 0 37px 60px;
+}
+
+.button.pause {
+    border-style: double;
+    border-width: 0px 0 0px 60px;
+}
+
+.controlls {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, 70%);
+    transform: translate(-50%, 70%);
+    font-size: min(min(15vw, 15vh), 40pt);
+}
+
+.controlls>i {
+    padding-left: min(min(1vw, 1vh), 10px);
+    padding-right: min(min(1vw, 1vh), 10px);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+body:hover .controlls>i {
+    opacity: 1;
+}
+
+.controlls>i.hidden {
+    display: none;
+}

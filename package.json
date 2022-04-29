@@ -10,13 +10,18 @@
     "make": "electron-forge make",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "make-all": "electron-builder -mwl"
+    "make-all": "electron-builder -mwl",
+    "make-win": "electron-builder --win portable"
   },
   "build": {
     "appId": "com.electron.${name}",
     "mac": {
       "category": "public.app-category.education"
-    }
+    },
+    "files": [
+      "**/*",
+      "!node_modules/**/*"
+    ]
   },
   "author": "",
   "license": "MIT",
@@ -31,7 +36,8 @@
   },
   "dependencies": {
     "@mdi/font": "^6.6.96",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "v8-compile-cache": "^2.3.0"
   },
   "config": {
     "forge": {
