@@ -19,12 +19,12 @@
       "category": "public.app-category.education"
     },
     "win": {
-      "target": "portable"
-    },
-    "files": [
-      "**/*",
-      "!node_modules/**/*"
-    ]
+      "target": "portable",
+      "files": [
+        "**/*",
+        "!node_modules/**/*"
+      ]
+    }
   },
   "author": "",
   "license": "MIT",
