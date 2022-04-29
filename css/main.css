@@ -62,6 +62,10 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+input:disabled {
+    color: black;
+}
+
 .button {
     box-sizing: border-box;
     height: 74px;

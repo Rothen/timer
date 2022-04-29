@@ -45,7 +45,9 @@ let restTime;
 let time
 let interval;
 let interval_time = 1000 / fps
+let isRunning = false;
 let isPaused = false;
+let isDone = false;
 let isDeleted = false;
 
 let minutes = 2;
@@ -67,6 +69,27 @@ const red = Color.fromHex('ff6662');
 const orange_per_percent = green.stepsToOtherColor(orange);
 const red_per_percent = orange.stepsToOtherColor(red);
 let color = green;
+
+document.body.onkeyup = function(e) {
+    if (e.key == " " ||
+        e.code == "Space" ||
+        e.keyCode == 32
+    ) {
+        if (isDone) {
+            clearSVG();
+        } else if (isRunning) {
+            if (isPaused) {
+                start();
+            } else {
+                pause();
+            }
+        } else {
+            start();
+        }
+    } else if (e.keyCode == 46) {
+        clearSVG();
+    }
+}
 
 function format(input) {
     if (input.value.length === 1) {
@@ -116,6 +139,9 @@ function clearSVG() {
     pauseEl.classList.add('hidden');
     undoEl.classList.add('hidden');
 
+    secondsEl.disabled = false;
+    minutesEl.disabled = false;
+
     draw.clear()
     minutes = lastStartedMinutes
     seconds = lastStartedSeconds
@@ -123,7 +149,9 @@ function clearSVG() {
     secondsEl.value = seconds
     format(minutesEl)
     format(secondsEl)
+    isRunning = false;
     isPaused = false;
+    isDone = false;
     isDeleted = false;
     startTime = 0;
     endTime = 0;
@@ -147,6 +175,10 @@ function start() {
         return;
     }
 
+    secondsEl.disabled = true;
+    minutesEl.disabled = true;
+
+    isRunning = true;
     lastStartedMinutes = minutes
     lastStartedSeconds = seconds
     time = (minutes * 60 + seconds) * 1000
@@ -197,25 +229,21 @@ function start() {
     }, interval_time)
 }
 
+function ripple(delay) {
+    draw.circle(side - delta).fill(red.HEX).move(delta / 2, delta / 2).animate({
+        duration: 500,
+        delay: delay,
+        when: 'now'
+    }).attr({ r: side / 2, opacity: 0 })
+}
+
 function endReached() {
-    pauseEl.classList.add('hidden')
-    draw.circle((side - delta)).fill(red.HEX).move(delta / 2, delta / 2)
-    draw.circle(side - delta).fill(red.HEX).move(delta / 2, delta / 2).animate({
-        duration: 500,
-        when: 'now'
-    }).attr({ r: side / 2, opacity: 0 })
-
-    draw.circle(side - delta).fill(red.HEX).move(delta / 2, delta / 2).animate({
-        duration: 500,
-        delay: 250,
-        when: 'now'
-    }).attr({ r: side / 2, opacity: 0 })
-
-    draw.circle(side - delta).fill(red.HEX).move(delta / 2, delta / 2).animate({
-        duration: 500,
-        delay: 500,
-        when: 'now'
-    }).attr({ r: side / 2, opacity: 0 })
+    isDone = true;
+    pauseEl.classList.add('hidden');
+    draw.circle((side - delta)).fill(red.HEX).move(delta / 2, delta / 2);
+    ripple(0);
+    ripple(250);
+    ripple(500);
 }
 
 function pause() {
